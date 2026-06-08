@@ -12,7 +12,7 @@ class NotesModels ( DatabaseManager ):
             CREATE TABLE IF NOT EXISTS notes (      
             notes_id INTEGER PRIMARY KEY AUTOINCREMENT,
             FOREIGN KEY (etud_id) REFERENCES etudiants(etud_id),
-            FOREIGN KEY (matiere_id) REFERENCES matiere(matiere_id)
+            FOREIGN KEY (matiere_id) REFERENCES matiere(matiere_id),
             note INTEGER 
 
         )
