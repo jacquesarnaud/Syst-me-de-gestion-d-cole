@@ -1,9 +1,8 @@
-MENU_PRINCIPALE = """
 
+MENU_PRINCIPALE = """
 ╔══════════════════════════════════════════════════╗
 ║       BIENVENUE SUR L'ESPACE DE GESTION          ║
 ╚══════════════════════════════════════════════════╝
-
 """
 
 OPTION_PRINCIPALE_ADMIN = """

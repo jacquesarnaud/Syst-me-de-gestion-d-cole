@@ -2,38 +2,23 @@ from database.bd import DatabaseManager
 
 class UtilisateurModels ( DatabaseManager ):
 
-    def __init__(self):
-        super().__init__()
-        self.Utilisateur()
-
-    def Utilisateur(self):
-        self.cusor.execute("""
-    CREATE TABLE IF NOT EXISTS utilisateurs(
-        student_id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nom TEXT NOT NULL,
-        role TEXT NOT NULL CHECK(role IN ('admin', 'etudiant', 'professeur')),
-        email TEXT UNIQUE NOT NULL,
-        mot_de_passe TEXT NOT NULL
-    )
-    """)
-        
-    def supp_table(self,nom_table):
-        self.cusor.execute(f"DROP TABLE IF EXISTS {nom_table}")
-        self.conn.commit()
-
-    def ajouter_utilsateur(self, nom, role,email,mot_de_passe):
-
-        self.cusor.execute("INSERT INTO utilisateur (nom, role,email,mot_de_passe) VALUES (? , ?)",(nom, role,email,mot_de_passe))
-        self.conn.commit()
-
-    def lister_utilsateur(self):
-        self.cusor.execute("SELECT * FROM utilisateur ")
-        return self.cusor.fetchall() 
-
-    def suprimer_utilsateur(self, email):
-        self.cusor.execute("DELETE FROM utilisateur WHERE id = ? ", (email,))
+    def ajouter_utilisateur(self, nom, prenom, role):
+        self.cusor.execute('''INSERT INTO utilisateurs (nom, prenom, role) VALUES (?, ?, ?)''', 
+                            (nom, prenom, role))
         self.conn.commit()
     
-    def close(self):
-        self.conn.close()
-         
+    def lister_utilisateurs(self):
+        self.cusor.execute('''SELECT * FROM utilisateurs''')
+        return self.cusor.fetchall()
+    
+    def supprimer_utilisateur(self, utilisateur_id):
+        self.cusor.execute('''DELETE FROM utilisateurs WHERE id = ?''', (utilisateur_id,))
+        self.conn.commit()
+    
+    def modifier_utilisateur(self, utilisateur_id, nouveau_role):
+        self.cusor.execute('''UPDATE utilisateurs SET role = ? WHERE id = ?''', (nouveau_role, utilisateur_id))
+        self.conn.commit()
+
+    def rechercher_utilisateur(self, nom):
+        self.cusor.execute('''SELECT * FROM utilisateurs WHERE nom = ?''', (nom,))
+        return self.cusor.fetchone()

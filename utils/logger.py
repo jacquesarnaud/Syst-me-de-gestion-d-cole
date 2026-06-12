@@ -5,11 +5,16 @@ class LoggerUtils:
          
         self.log = logging.basicConfig(
             filename="app.log",
-            filemode="w",  # Overwrites the file each run; use 'a' to append
+            filemode="w", 
             level=logging.DEBUG,
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
         )
-    def 
-    logging.debug("Diagnosing structural steps.")
-    logging.info("System operational sequence cleared.")
-    logging.warning("Memory usage exceeds reference index.")
+    def log_info(self, message):
+        logging.info(message)
+
+    def log_warning(self, message):
+        logging.warning(message)
+
+    def log_error(self, message):
+        logging.error(message)
+    
